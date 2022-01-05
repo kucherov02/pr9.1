@@ -85,14 +85,13 @@ class User {
     public static function auth($conn, $email, $password) {
 
         $users = self::all($conn);
-        $sql = "SELECT * FROM users";
-        $result = $conn->query($sql);
-        foreach ($users as $user) {
-            if ($user['email'] == $email && $user['password'] == $password) {
-                $_SESSION['auth'] = true;
-                return;
+        
+            foreach ($users as $user) {
+                if ($user['email'] == $email && password_verify($password, $user['password']) == true){
+                    return $user;
+                }
             }
-        }
+        
     }
 
 }

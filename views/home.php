@@ -1,13 +1,3 @@
-<?php 
-
-
-$isLogined = false;
-
-if (isset($_SESSION['auth']) && $_SESSION['auth'] === true) {
-   $isLogined = true;
-}
-
-?>
 
 <!doctype html>
 <html lang="en">
@@ -29,8 +19,8 @@ if (isset($_SESSION['auth']) && $_SESSION['auth'] === true) {
 <body>
 <div class="container">
        <h3>Control Panel</h3>
-       <?php if($isLogined === false) : ?>
-       <form action="?controller=login" method="post">
+       <?php if(!array_key_exists('auth', $_SESSION)) : ?>
+       <form action="?controller=login&action=login" method="post">
            <div class="row">
                <div class="field">
                    <label>Email: <input type="email" name="email"></label>
@@ -49,8 +39,8 @@ if (isset($_SESSION['auth']) && $_SESSION['auth'] === true) {
            <a class="lsbtn btn" href="?controller=users">List of all Users</a>
            <a class="btn" href="?controller=roles&action=addForm">Add new role</a>
        </div>
-       
-       <?php endif;?>
+       <?php endif;?> 
 </div>
+
 </body>
 </html>
